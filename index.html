@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Even or Odd Game</title>
+    <script>
+        let playerName = '';
+        let wins = 0;
+        let losses = 0;
+
+        function startGame() {
+            playerName = prompt("Please enter your name:");
+            if (playerName === null || playerName.trim() === '') {
+                alert("Name cannot be empty. Please refresh and enter a valid name.");
+                return;
+            }
+            playGame();
+        }
+
+        function playGame() {
+            let playerChoice = '';
+            while (playerChoice !== 'even' && playerChoice !== 'odd') {
+                playerChoice = prompt(`${playerName}, do you choose "even" or "odd"?`).toLowerCase();
+                if (playerChoice !== 'even' && playerChoice !== 'odd') {
+                    alert('Invalid input. Please enter "even" or "odd".');
+                }
+            }
+
+            const num1 = Math.floor(Math.random() * 4) + 1;
+            const num2 = Math.floor(Math.random() * 4) + 1;
+            const sum = num1 + num2;
+            const isSumEven = sum % 2 === 0;
+
+            let resultMessage = '';
+
+            if ((isSumEven && playerChoice === 'even') || (!isSumEven && playerChoice === 'odd')) {
+                resultMessage = `${playerName}, you chose ${playerChoice}, the sum was ${sum}, which is an ${isSumEven ? 'even' : 'odd'} number, you win!`;
+                wins++;
+            } else {
+                resultMessage = `${playerName}, you chose ${playerChoice}, the sum was ${sum}, which is an ${isSumEven ? 'even' : 'odd'} number, you lose!`;
+                losses++;
+            }
+
+            resultMessage += `\nThat's ${wins} wins and ${losses} losses!`;
+            if (confirm(`${resultMessage}\nWould you like to play again?`)) {
+                playGame();
+            } else {
+                alert('Thank you for playing!');
+            }
+        }
+    </script>
+</head>
+<body onload="startGame()">
+    <h1>Welcome to the Even or Odd Game!</h1>
+    <p>Your game will start shortly.</p>
+</body>
+</html>
